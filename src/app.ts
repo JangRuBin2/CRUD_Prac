@@ -1,6 +1,6 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import mongoose, { Document, Schema } from 'mongoose';
-
+import { join } from 'path';
 const app = express();
 const port = 3000;
 
@@ -24,11 +24,13 @@ const itemSchema = new Schema<ItemDocument>({
   name: String,
   description: String,
 });
-
+app.use(express.static(join(__dirname, 'src')));
 const Item = mongoose.model<ItemDocument>('Item', itemSchema);
-
+app.get('/', (req : Request, res : Response)=> {
+  res.sendFile(join(__dirname,'index.html'));
+})
 // Express 라우트 설정 - MongoDB에서 데이터 가져오기
-app.get('/items', async (req, res) => {
+app.get('/items', async (req : Request, res : Response) => {
   try {
     const items = await Item.find();
     res.status(200).send(items);
