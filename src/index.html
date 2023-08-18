@@ -21,7 +21,22 @@
     function sendText() {
       const title = document.getElementById("title").value;
       const content = document.getElementById("content").value;
-      console.log(title, content);
+      const data = {
+        title : title,
+        content : content
+      };
+      fetch('/sendText', {
+        method : 'POST',
+        headers : {'Content-Type':'application/json'},
+        body : JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
   </script>
 </body>

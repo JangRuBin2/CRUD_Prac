@@ -1,46 +1,45 @@
 import express, { Request, Response } from 'express';
 import mongoose, { Document, Schema } from 'mongoose';
-import { join } from 'path';
+import path from 'path';
+
 const app = express();
 const port = 3000;
 
-// MongoDB 연결 문자열 (본인의 MongoDB 서버 주소로 변경)
-const connectionString = 'mongodb://localhost:27017/test_db';
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Mongoose 라이브러리로 MongoDB 연결 시도.
-mongoose
-  .connect(connectionString)
-  .then(() => console.log('Connected to MongoDB using Mongoose'))
-  .catch((error) => console.error('Error connecting to MongoDB:', error));
+mongoose.connect('mongodb://localhost:27017/test_db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+} as mongoose.ConnectOptions);
 
-
-// Mongoose 스키마 및 모델 정의
-interface ItemDocument extends Document {
-  name: string;
-  description: string;
+interface MessageDocument extends Document {
+  title: string;
+  content: string;
 }
 
-const itemSchema = new Schema<ItemDocument>({
-  name: String,
-  description: String,
+const messageSchema = new Schema<MessageDocument>({
+  title: String,
+  content: String
 });
-app.use(express.static(join(__dirname, 'src')));
-const Item = mongoose.model<ItemDocument>('Item', itemSchema);
-app.get('/', (req : Request, res : Response)=> {
-  res.sendFile(join(__dirname,'index.html'));
-})
-// Express 라우트 설정 - MongoDB에서 데이터 가져오기
-app.get('/items', async (req : Request, res : Response) => {
+
+const Message = mongoose.model<MessageDocument>('Message', messageSchema);
+
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/sendText', async (req: Request, res: Response) => {
   try {
-    const items = await Item.find();
-    res.status(200).send(items);
+    const { title, content } = req.body;
+    const newMessage = new Message({ title, content });
+    await newMessage.save();
+    res.status(201).json({ message: 'Message added successfully' });
   } catch (error) {
-    res.status(500).send('Error fetching items: ' + error);
+    res.status(500).json({ error: 'Error adding message' });
   }
 });
 
-
-// 서버 시작
 app.listen(port, () => {
- console.log(`서버가 ${port} 포트에서 실행 중`);
+  console.log(`Server is running on port ${port}`);
 });
