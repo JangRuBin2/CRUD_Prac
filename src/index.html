@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>글 쓰기</title>
 </head>
 <body>
-  <p>페이지 불러오기 테스트</p>
+  <h2>글 쓰기</h2>
+  <div>
+    <label for="title">제목 :</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <div>
+    <label for="content">내용 :</label>
+    <input type="text" name="content" id="content">
+  </div>
+  <button onclick="sendText()">전송</button>
+
+  <script>
+    function sendText() {
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      console.log(title, content);
+    }
+  </script>
 </body>
 </html>
