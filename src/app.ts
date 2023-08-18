@@ -21,7 +21,7 @@ const messageSchema = new Schema<MessageDocument>({
   title: String,
   content: String
 });
-
+// 모델 생성
 const Message = mongoose.model<MessageDocument>('Message', messageSchema);
 
 app.get('/', (req: Request, res: Response) => {
@@ -32,6 +32,7 @@ app.post('/sendText', async (req: Request, res: Response) => {
   try {
     const { title, content } = req.body;
     const newMessage = new Message({ title, content });
+    //db에 저장
     await newMessage.save();
     res.status(201).json({ message: 'Message added successfully' });
   } catch (error) {
