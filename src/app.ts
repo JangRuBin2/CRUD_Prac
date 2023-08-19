@@ -27,6 +27,9 @@ const Message = mongoose.model<MessageDocument>('Message', messageSchema);
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+app.get('/write.html', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'write.html'));
+});
 
 app.post('/sendText', async (req: Request, res: Response) => {
   try {
