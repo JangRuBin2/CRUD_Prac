@@ -30,8 +30,13 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/write.html', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'write.html'));
 });
-app.get('/loadContent', (req : Request, res : Response) => {
-  console.log('요청은 잘 옴');
+app.get('/loadContent', async(req : Request, res : Response) => {
+  const messages = await Message.find();
+  const formattedMessage = messages.map(message => ({
+    title : message.title,
+    content : message.content
+  }))
+  res.json(formattedMessage);
 })
 app.post('/sendText', async (req: Request, res: Response) => {
   try {
