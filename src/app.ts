@@ -30,7 +30,9 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/write.html', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'write.html'));
 });
-
+app.get('/loadContent', (req : Request, res : Response) => {
+  console.log('요청은 잘 옴');
+})
 app.post('/sendText', async (req: Request, res: Response) => {
   try {
     const { title, content } = req.body;
