@@ -6,7 +6,7 @@
   <title>글 쓰기</title>
 </head>
 <body>
-  <h2>글 쓰기</h2>
+  <h2 onclick="test()">글 쓰기</h2>
   <div>
     <label for="title">제목 :</label>
     <input type="text" name="title" id="title">
@@ -30,13 +30,19 @@
         headers : {'Content-Type':'application/json'},
         body : JSON.stringify(data)
       })
-      .then(response => response.json())
+      .then(response => response.json()
+      )
       .then(data => {
         console.log(data);
+        alert('게시글을 성공적으로 작성했습니다.');
+        window.location.href = './index.html';
       })
       .catch(error => {
         console.log(error);
       })
+    }
+    function test() {
+      window.location.href = './src/index.html'
     }
   </script>
 </body>

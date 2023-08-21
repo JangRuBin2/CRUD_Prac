@@ -30,6 +30,9 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/write.html', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'write.html'));
 });
+app.get('/index.html', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 app.get('/loadContent', async(req : Request, res : Response) => {
   const messages = await Message.find();
   const formattedMessage = messages.map(message => ({
