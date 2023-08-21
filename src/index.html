@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>메인 페이지</title>
 </head>
+<style>
+.content-area {
+  border: 1px solid #000000;
+  padding: 10px;
+  margin: 10px 0;
+}</style>
 <body>
   <div>
     <a href='./write.html'>글 쓰기</a>
@@ -33,6 +39,7 @@
       const contentBox = document.getElementById('content-box');
       data.forEach(item => {
         const itemElement = document.createElement('div');
+        itemElement.setAttribute('class','content-area');
         itemElement.innerHTML = `<h2>${item.title}</h2>
         <p>${item.content}</p>`;
         contentBox.appendChild(itemElement);
