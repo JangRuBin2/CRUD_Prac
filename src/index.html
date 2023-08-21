@@ -33,7 +33,8 @@
       const contentBox = document.getElementById('content-box');
       data.forEach(item => {
         const itemElement = document.createElement('div');
-        itemElement.innerHTML = `<h2>${item.title}</h2>`;
+        itemElement.innerHTML = `<h2>${item.title}</h2>
+        <p>${item.content}</p>`;
         contentBox.appendChild(itemElement);
       })
     }
