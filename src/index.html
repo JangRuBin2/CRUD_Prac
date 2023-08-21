@@ -43,7 +43,13 @@
         itemElement.innerHTML = `<h2>${item.title}</h2>
         <p>${item.content}</p>`;
         contentBox.appendChild(itemElement);
+        itemElement.addEventListener('click', ()=> {
+          redirectToEditPage(item.title, item.content);
+        })
       })
+    }
+    function redirectToEditPage(title, content) {
+      console.log(title, content);
     }
   </script>
 </body>
