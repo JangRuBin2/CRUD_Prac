@@ -8,7 +8,8 @@
 <body>
   <div>
     <a href='./write.html'>글 쓰기</a>
-    <button onclick="loadContent()">글 목록</button>
+    <div id="content-box">글 목록</div>
+    <button onclick="loadContent()">글 조회</button>
   </div>
   <script>
     function loadContent() {
@@ -21,11 +22,19 @@
           return response.json()
         })
         .then(data => {
-          resolve(data);
+          showContent(data);
         })
         .catch(error => {
           reject(error);
         })
+      })
+    }
+    function showContent(data) {
+      const contentBox = document.getElementById('content-box');
+      data.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.innerHTML = `<h2>${item.title}</h2>`;
+        contentBox.appendChild(itemElement);
       })
     }
   </script>
