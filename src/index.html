@@ -50,6 +50,9 @@
     }
     function redirectToEditPage(title, content) {
       console.log(title, content);
+      const url_title = encodeURIComponent(title);
+      const url_content = encodeURIComponent(content);
+      window.location.href = `/edit.html?title=${url_title}&content=${url_content}`;
     }
   </script>
 </body>
