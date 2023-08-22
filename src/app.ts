@@ -71,7 +71,19 @@ app.put('/editContent', async (req : Request, res : Response) => {
   } catch (error) {
     res.status(500).json({ error: '게시물 수정 중 오류가 발생했습니다.' });
   };
-})
+});
+app.delete('/deleteContent', async(req : Request, res : Response) => {
+  try {
+    const {id} = req.body
+    const deletedMessage = await Message.findByIdAndDelete(id);
+    if (!deletedMessage) {
+      return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+    }
+    res.status(200).json({ message: '게시물 삭제가 완료되었습니다.' });
+  } catch (error) {
+    res.status(500).json({ error: '게시물 삭제 중 오류가 발생했습니다.' });
+  }
+});
 app.listen(3000, () => {
   console.log('Server is running');
 });
