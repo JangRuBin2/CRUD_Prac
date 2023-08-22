@@ -6,6 +6,31 @@
   <title>내용 수정</title>
 </head>
 <body>
-    <h2>내용 수정</h2>
+  <h2>글 수정</h2>
+  <div>
+    <label for="title">제목 :</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <div>
+    <label for="content">내용 :</label>
+    <input type="text" name="content" id="content">
+  </div>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    const title = getQueryParam('title');
+    const content = getQueryParam('content');
+    console.log('Title:', title);
+    console.log('Content:', content);
+    const pastTitle = document.getElementById('title');
+    const pastContent = document.getElementById('content');
+    pastTitle.value = title;
+    pastContent.value = content;
+    console.log('pastTitle :', pastTitle);
+    console.log('pastContent :', pastContent);
+
+  </script>
 </body>
 </html>
