@@ -67,6 +67,7 @@ app.put('/editContent', async (req : Request, res : Response) => {
     messageToUpdate.title = title;
     messageToUpdate.content = content;
     await messageToUpdate.save();
+    res.status(200).json({ message: '게시물 수정이 완료되었습니다.' });
   } catch (error) {
     res.status(500).json({ error: '게시물 수정 중 오류가 발생했습니다.' });
   };
