@@ -24,8 +24,10 @@
     }
     const title = getQueryParam('title');
     const content = getQueryParam('content');
+    const id = getQueryParam('id');
     console.log('Title:', title);
     console.log('Content:', content);
+    console.log('id:', id);
     const pastTitle = document.getElementById('title');
     const pastContent = document.getElementById('content');
     pastTitle.value = title;
@@ -35,7 +37,6 @@
     function edit() {
       const editTileValue = pastTitle.value;
       const editContentValue = pastContent.value;
-
       fetch('/editContent', {
         method : 'PUT',
         headers : {
@@ -43,7 +44,8 @@
         },
         body : JSON.stringify({
           title : editTileValue,
-          content : editContentValue
+          content : editContentValue,
+          id : id
         })
       })
       .then(response => {

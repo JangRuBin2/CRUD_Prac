@@ -56,9 +56,17 @@ app.post('/sendText', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error adding message' });
   }
 });
-app.put('editContent', async (req : Request, res : Response) => {
+app.put('/editContent', async (req : Request, res : Response) => {
   try {
-    const postID = req.params
+    const {title, content, id} = req.body;
+    console.log(title, content, id);
+    const messageToUpdate = await Message.findOne({ _id: id });
+    if (!messageToUpdate) {
+      return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+    }
+    messageToUpdate.title = title;
+    messageToUpdate.content = content;
+    await messageToUpdate.save();
   } catch (error) {
     res.status(500).json({ error: '게시물 수정 중 오류가 발생했습니다.' });
   };
