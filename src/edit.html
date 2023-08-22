@@ -15,6 +15,8 @@
     <label for="content">내용 :</label>
     <input type="text" name="content" id="content">
   </div>
+  <button onclick="edit()">저장</button>
+  <button onclick="cancel()">취소</button>
   <script>
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -30,7 +32,38 @@
     pastContent.value = content;
     console.log('pastTitle :', pastTitle);
     console.log('pastContent :', pastContent);
+    function edit() {
+      const editTileValue = pastTitle.value;
+      const editContentValue = pastContent.value;
 
+      fetch('/editContent', {
+        method : 'PUT',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+          title : editTileValue,
+          content : editContentValue
+        })
+      })
+      .then(response => {
+    if (!response.ok) {
+      throw new Error('게시물 수정에 실패했습니다.');
+    }
+    return response.json();
+  })
+      .then(data => {
+        console.log(data);
+        alert('게시글을 성공적으로 수정했습니다.');
+        window.location.href = './index.html';
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    };
+    function cancel() {
+      window.history.back()
+    };
   </script>
 </body>
 </html>

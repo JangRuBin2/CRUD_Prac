@@ -40,7 +40,8 @@ app.get('/loadContent', async(req : Request, res : Response) => {
   const messages = await Message.find();
   const formattedMessage = messages.map(message => ({
     title : message.title,
-    content : message.content
+    content : message.content,
+    id : message.id
   }))
   res.json(formattedMessage);
 })
@@ -55,7 +56,13 @@ app.post('/sendText', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error adding message' });
   }
 });
-
+app.put('editContent', async (req : Request, res : Response) => {
+  try {
+    const postID = req.params
+  } catch (error) {
+    res.status(500).json({ error: '게시물 수정 중 오류가 발생했습니다.' });
+  };
+})
 app.listen(3000, () => {
   console.log('Server is running');
 });

@@ -44,15 +44,17 @@
         <p>${item.content}</p>`;
         contentBox.appendChild(itemElement);
         itemElement.addEventListener('click', ()=> {
-          redirectToEditPage(item.title, item.content);
+          redirectToEditPage(item.title, item.content, item.id);
         })
       })
     }
-    function redirectToEditPage(title, content) {
+    function redirectToEditPage(title, content, id) {
       console.log(title, content);
       const url_title = encodeURIComponent(title);
       const url_content = encodeURIComponent(content);
-      window.location.href = `/edit.html?title=${url_title}&content=${url_content}`;
+      const url_id = encodeURIComponent(id);
+      window.location.href = `/edit.html?title=${url_title}&content=${url_content}&id=${url_id}`;
+      console.log(id);
     }
   </script>
 </body>
